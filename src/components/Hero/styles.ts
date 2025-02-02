@@ -16,14 +16,12 @@ export const HeroBar = styled.div`
     width: 125px;
     height: 56px;
     margin-top: 40px;
-    margin-left: 150px;
   }
 
   p {
     width: 539px;
     height: 84px;
     margin-top: 148px;
-    margin-left: 150px;
     font-size: 36px;
     font-weight: bold;
     line-height: 42px;

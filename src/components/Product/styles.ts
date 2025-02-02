@@ -9,7 +9,6 @@ export const Card = styled.div`
   border: 1px solid ${cores.rosa};
   width: 472px;
   height: 398px;
-  margin-left: 171px;
 
   img {
     height: 217px;
