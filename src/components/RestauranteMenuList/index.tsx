@@ -8,10 +8,9 @@ type Props = {
   menu: Menu[]
 }
 
-const RestauranteMenuList = ({ title, menu }: Props) => (
+const RestauranteMenuList = ({ menu }: Props) => (
   <Container>
     <div className="container">
-      <h2>{title}</h2>
       <List>
         {menu.map((menu) => (
           <RestauranteMenu

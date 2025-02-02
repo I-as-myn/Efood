@@ -8,23 +8,20 @@ type Props = {
   restaurantes: Restaurantes[]
 }
 
-const ProductsList = ({ title, restaurantes }: Props) => (
+const ProductsList = ({ restaurantes }: Props) => (
   <Container>
-    <div className="container">
-      <h2>{title}</h2>
-      <List>
-        {restaurantes.map((restaurantes) => (
-          <Product
-            key={restaurantes.id}
-            title={restaurantes.title}
-            description={restaurantes.description}
-            image={restaurantes.image}
-            infos={restaurantes.infos}
-            grade={restaurantes.grade}
-          />
-        ))}
-      </List>
-    </div>
+    <List>
+      {restaurantes.map((restaurantes) => (
+        <Product
+          key={restaurantes.id}
+          title={restaurantes.title}
+          description={restaurantes.description}
+          image={restaurantes.image}
+          infos={restaurantes.infos}
+          grade={restaurantes.grade}
+        />
+      ))}
+    </List>
   </Container>
 )
 
