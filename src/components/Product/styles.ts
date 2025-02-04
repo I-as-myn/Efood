@@ -66,5 +66,6 @@ export const Button = styled(Link)`
   text-decoration: none;
   display: flex;
   align-items: center;
+  font-weight: bold;
   justify-content: center;
 `

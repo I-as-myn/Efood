@@ -8,6 +8,13 @@ type Props = {
   menu: Menu[]
 }
 
+export const formataPreco = (preco = 0) => {
+  return new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL'
+  }).format(preco)
+}
+
 const RestauranteMenuList = ({ menu }: Props) => (
   <Container>
     <div className="container">
@@ -18,6 +25,9 @@ const RestauranteMenuList = ({ menu }: Props) => (
             title={menu.title}
             description={menu.description}
             image={menu.image}
+            description2={menu.description2}
+            description3={menu.description3}
+            priceItem={menu.priceItem}
           />
         ))}
       </List>
