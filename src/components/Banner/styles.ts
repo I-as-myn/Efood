@@ -1,12 +1,11 @@
 import styled from 'styled-components'
 import { cores } from '../../styles'
 
-import fundo from '../../assets/image/massa.ong.png'
-
-export const Container = styled.div`
+export const Container = styled.div<{ backgroundImage: string }>`
   width: 100%;
   height: 280px;
-  background-image: url(${fundo});
+  background-image: url(${(props) =>
+    props.backgroundImage}); /* Usamos a prop aqui */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -20,13 +19,14 @@ export const Container = styled.div`
   }
 
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
+  }
 `
 
 export const Title = styled.h2`

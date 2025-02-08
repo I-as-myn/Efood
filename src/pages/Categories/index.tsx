@@ -1,85 +1,107 @@
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import Header from '../../components/Header'
 import Banner from '../../components/Banner'
-import Menu from '../../models/Menu'
 import RestauranteMenuList from '../../components/RestauranteMenuList'
 
-import pizza from '../../assets/image/pizza.png'
+type MenuItem = {
+  id: number
+  title: string
+  description: string
+  description2?: string
+  description3?: string
+  image: string
+  priceItem: number
+}
 
-const menuHome: Menu[] = [
-  {
-    id: 1,
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    title: 'Pizza Marguerita',
-    image: pizza,
-    description2:
-      'A pizza Margherita é uma pizza clássica da culinária italiana, reconhecida por sua simplicidade e sabor inigualável. Ela é feita com uma base de massa fina e crocante, coberta com molho de tomate fresco, queijo mussarela de alta qualidade, manjericão fresco e azeite de oliva extra-virgem. A combinação de sabores é perfeita, com o molho de tomate suculento e ligeiramente ácido, o queijo derretido e cremoso e as folhas de manjericão frescas, que adicionam um toque de sabor herbáceo. É uma pizza simples, mas deliciosa, que agrada a todos os paladares e é uma ótima opção para qualquer ocasião. ',
-    description3: 'Serve: de 2 a 3 pessoas',
-    priceItem: 60.9
-  },
-  {
-    id: 2,
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    title: 'Pizza Marguerita',
-    image: pizza,
-    description2:
-      'A pizza Margherita é uma pizza clássica da culinária italiana, reconhecida por sua simplicidade e sabor inigualável. Ela é feita com uma base de massa fina e crocante, coberta com molho de tomate fresco, queijo mussarela de alta qualidade, manjericão fresco e azeite de oliva extra-virgem. A combinação de sabores é perfeita, com o molho de tomate suculento e ligeiramente ácido, o queijo derretido e cremoso e as folhas de manjericão frescas, que adicionam um toque de sabor herbáceo. É uma pizza simples, mas deliciosa, que agrada a todos os paladares e é uma ótima opção para qualquer ocasião. ',
-    description3: 'Serve: de 2 a 3 pessoas',
-    priceItem: 60.9
-  },
-  {
-    id: 3,
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    title: 'Pizza Marguerita',
-    image: pizza,
-    description2:
-      'A pizza Margherita é uma pizza clássica da culinária italiana, reconhecida por sua simplicidade e sabor inigualável. Ela é feita com uma base de massa fina e crocante, coberta com molho de tomate fresco, queijo mussarela de alta qualidade, manjericão fresco e azeite de oliva extra-virgem. A combinação de sabores é perfeita, com o molho de tomate suculento e ligeiramente ácido, o queijo derretido e cremoso e as folhas de manjericão frescas, que adicionam um toque de sabor herbáceo. É uma pizza simples, mas deliciosa, que agrada a todos os paladares e é uma ótima opção para qualquer ocasião. ',
-    description3: 'Serve: de 2 a 3 pessoas',
-    priceItem: 60.9
-  },
-  {
-    id: 4,
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    title: 'Pizza Marguerita',
-    image: pizza,
-    description2:
-      'A pizza Margherita é uma pizza clássica da culinária italiana, reconhecida por sua simplicidade e sabor inigualável. Ela é feita com uma base de massa fina e crocante, coberta com molho de tomate fresco, queijo mussarela de alta qualidade, manjericão fresco e azeite de oliva extra-virgem. A combinação de sabores é perfeita, com o molho de tomate suculento e ligeiramente ácido, o queijo derretido e cremoso e as folhas de manjericão frescas, que adicionam um toque de sabor herbáceo. É uma pizza simples, mas deliciosa, que agrada a todos os paladares e é uma ótima opção para qualquer ocasião. ',
-    description3: 'Serve: de 2 a 3 pessoas',
-    priceItem: 60.9
-  },
-  {
-    id: 5,
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    title: 'Pizza Marguerita',
-    image: pizza,
-    description2:
-      'A pizza Margherita é uma pizza clássica da culinária italiana, reconhecida por sua simplicidade e sabor inigualável. Ela é feita com uma base de massa fina e crocante, coberta com molho de tomate fresco, queijo mussarela de alta qualidade, manjericão fresco e azeite de oliva extra-virgem. A combinação de sabores é perfeita, com o molho de tomate suculento e ligeiramente ácido, o queijo derretido e cremoso e as folhas de manjericão frescas, que adicionam um toque de sabor herbáceo. É uma pizza simples, mas deliciosa, que agrada a todos os paladares e é uma ótima opção para qualquer ocasião. ',
-    description3: 'Serve: de 2 a 3 pessoas',
-    priceItem: 60.9
-  },
-  {
-    id: 6,
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    title: 'Pizza Marguerita',
-    image: pizza,
-    description2:
-      'A pizza Margherita é uma pizza clássica da culinária italiana, reconhecida por sua simplicidade e sabor inigualável. Ela é feita com uma base de massa fina e crocante, coberta com molho de tomate fresco, queijo mussarela de alta qualidade, manjericão fresco e azeite de oliva extra-virgem. A combinação de sabores é perfeita, com o molho de tomate suculento e ligeiramente ácido, o queijo derretido e cremoso e as folhas de manjericão frescas, que adicionam um toque de sabor herbáceo. É uma pizza simples, mas deliciosa, que agrada a todos os paladares e é uma ótima opção para qualquer ocasião. ',
-    description3: 'Serve: de 2 a 3 pessoas',
-    priceItem: 60.9
+type ApiMenuItem = {
+  id: number
+  nome: string
+  descricao: string
+  foto: string
+  preco: number
+  porcao: string
+}
+
+type ApiRestaurant = {
+  id: number
+  nome: string
+  imagemFundo: string
+  categoria: string
+  cardapio: ApiMenuItem[]
+}
+
+const Categories = () => {
+  const { id } = useParams()
+  const [menu, setMenu] = useState<MenuItem[]>([])
+  const [restaurantInfo, setRestaurantInfo] = useState<ApiRestaurant | null>(
+    null
+  )
+  const [loading, setLoading] = useState<boolean>(true)
+
+  const fetchRestaurantData = async (restaurantId: string | undefined) => {
+    if (!restaurantId) return
+
+    try {
+      const response = await fetch(
+        `https://fake-api-tau.vercel.app/api/efood/restaurantes/${restaurantId}`
+      )
+      if (!response.ok) {
+        throw new Error('Erro ao buscar dados do restaurante')
+      }
+      const data = await response.json()
+
+      setRestaurantInfo({
+        id: data.id,
+        nome: data.titulo,
+        imagemFundo: data.capa,
+        categoria: data.tipo,
+        cardapio: data.cardapio
+      })
+
+      if (data.cardapio) {
+        const mappedMenu = data.cardapio.map((item: ApiMenuItem) => ({
+          id: item.id,
+          title: item.nome,
+          description: item.descricao,
+          description2: item.descricao,
+          description3: item.porcao,
+          image: item.foto,
+          priceItem: item.preco
+        }))
+        setMenu(mappedMenu)
+      }
+
+      setLoading(false)
+    } catch (error) {
+      console.error('Erro ao carregar dados:', error)
+      setLoading(false)
+    }
   }
-]
 
-const Categories = () => (
-  <>
-    <Header />
-    <Banner />
-    <RestauranteMenuList menu={menuHome} title="" />
-  </>
-)
+  useEffect(() => {
+    fetchRestaurantData(id)
+  }, [id])
+
+  return (
+    <>
+      <Header />
+      {restaurantInfo && (
+        <Banner
+          restaurantInfo={{
+            nome: restaurantInfo.nome,
+            categoria: restaurantInfo.categoria
+          }}
+          backgroundImage={restaurantInfo.imagemFundo}
+        />
+      )}
+      {loading ? (
+        <p>Carregando dados...</p>
+      ) : (
+        <RestauranteMenuList menu={menu} title="" />
+      )}
+    </>
+  )
+}
 
 export default Categories

@@ -24,3 +24,19 @@ class Restaurantes {
 }
 
 export default Restaurantes
+
+// id
+// Titulo
+// destaque
+// tipo
+// avaliacao
+// Descricao
+// capa
+// cardapio {
+//   id
+//   Foto
+//   preco
+//   NOME
+//   Descricao
+//   porcao
+// }

@@ -1,7 +1,6 @@
-import Menu from '../../models/Menu'
-import RestauranteMenu from '../RestauranteMenu'
-
 import { Container, List } from './styles'
+import RestauranteMenu from '../RestauranteMenu'
+import Menu from '../../models/Menu'
 
 type Props = {
   title: string
@@ -15,19 +14,21 @@ export const formataPreco = (preco = 0) => {
   }).format(preco)
 }
 
-const RestauranteMenuList = ({ menu }: Props) => (
+const RestauranteMenuList = ({ menu, title }: Props) => (
   <Container>
     <div className="container">
+      <h2>{title}</h2>
       <List>
-        {menu.map((menu) => (
+        {menu.map((item) => (
           <RestauranteMenu
-            key={menu.id}
-            title={menu.title}
-            description={menu.description}
-            image={menu.image}
-            description2={menu.description2}
-            description3={menu.description3}
-            priceItem={menu.priceItem}
+            key={item.id}
+            id={item.id}
+            title={item.title}
+            description={item.description}
+            image={item.image}
+            priceItem={item.priceItem}
+            description2={item.description2}
+            description3={item.description3}
           />
         ))}
       </List>

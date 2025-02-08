@@ -1,10 +1,18 @@
 import { Category, Container, Title } from './styles'
 
-const Banner = () => (
-  <Container>
+type BannerProps = {
+  restaurantInfo: {
+    nome: string
+    categoria: string
+  }
+  backgroundImage: string
+}
+
+const Banner = ({ restaurantInfo, backgroundImage }: BannerProps) => (
+  <Container backgroundImage={backgroundImage}>
     <div className="container">
-      <Category>Italiana</Category>
-      <Title>La Dolce Vita Trattoria</Title>
+      <Category>{restaurantInfo.categoria}</Category>
+      <Title>{restaurantInfo.nome}</Title>
     </div>
   </Container>
 )

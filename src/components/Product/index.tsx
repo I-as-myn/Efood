@@ -1,5 +1,5 @@
+import { Link } from 'react-router-dom'
 import Tag from '../Tag'
-
 import {
   Card,
   Descricao,
@@ -11,6 +11,7 @@ import {
 } from './styles'
 
 type Props = {
+  id: number
   title: string
   description: string
   infos: string[]
@@ -18,7 +19,14 @@ type Props = {
   grade: number
 }
 
-const Product = ({ title, description, infos, image, grade }: Props) => (
+const getDescricao = (descricao: string) => {
+  if (descricao.length > 248) {
+    return descricao.slice(0, 245) + '...'
+  }
+  return descricao
+}
+
+const Product = ({ id, title, description, infos, image, grade }: Props) => (
   <Card>
     <img src={image} alt={title} />
     <Infos>
@@ -30,9 +38,27 @@ const Product = ({ title, description, infos, image, grade }: Props) => (
       <Titulo>{title}</Titulo>
       <Rating>{grade} ⭐</Rating>
     </HeaderCard>
-    <Descricao>{description}</Descricao>
-    <Button to="/categories">Saiba mais</Button>
+    <Descricao>{getDescricao(description)}</Descricao>
+    <Button as={Link} to={`/categories/${id}`}>
+      Saiba mais
+    </Button>
   </Card>
 )
 
 export default Product
+
+// id
+// Titulo
+// destaque
+// tipo
+// avaliacao
+// Descricao
+// capa
+// cardapio {
+//   id
+//   Foto
+//   preco
+//   NOME
+//   Descricao
+//   porcao
+// }
