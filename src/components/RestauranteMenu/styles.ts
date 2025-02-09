@@ -85,11 +85,12 @@ export const ModalContainer = styled.div`
 
   .container {
     color: ${cores.branca};
+    height: 280px;
     margin-right: 32px;
     margin-left: 24px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
 
     h3 {
       margin-bottom: 16px;
