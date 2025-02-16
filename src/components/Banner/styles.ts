@@ -4,8 +4,7 @@ import { cores } from '../../styles'
 export const Container = styled.div<{ backgroundImage: string }>`
   width: 100%;
   height: 280px;
-  background-image: url(${(props) =>
-    props.backgroundImage}); /* Usamos a prop aqui */
+  background-image: url(${(props) => props.backgroundImage});
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

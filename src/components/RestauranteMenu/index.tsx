@@ -12,6 +12,9 @@ import {
 
 import fechar from '../../assets/image/fechar.png'
 import { formataPreco } from '../RestauranteMenuList'
+import { useDispatch } from 'react-redux'
+
+import { add, open } from '../../store/reducers/cart'
 
 type Props = {
   id: number
@@ -29,6 +32,7 @@ const getDescricao = (descricao: string) => {
 
 const RestauranteMenu = ({
   title,
+  id,
   description,
   image,
   description2,
@@ -36,6 +40,21 @@ const RestauranteMenu = ({
   priceItem
 }: Props) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const dispatch = useDispatch()
+
+  const addToCart = () => {
+    dispatch(
+      add({
+        id,
+        title,
+        description,
+        image,
+        priceItem: priceItem ?? 0
+      })
+    )
+    dispatch(open())
+  }
 
   return (
     <>
@@ -46,7 +65,7 @@ const RestauranteMenu = ({
         </HeaderCard>
         <Descricao>{getDescricao(description)}</Descricao>
         <Button to="" onClick={() => setIsModalOpen(true)}>
-          Adicionar ao carrinho
+          Mais detalhes
         </Button>
       </Card>
 
@@ -68,7 +87,7 @@ const RestauranteMenu = ({
                 )}
                 {description3 && <>Serve: {description3}</>}
               </p>
-              <Button to="" className="customButton">
+              <Button to="" className="customButton" onClick={addToCart}>
                 Adicionar ao carrinho - {formataPreco(priceItem)}
               </Button>
             </div>

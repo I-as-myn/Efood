@@ -1,17 +1,9 @@
-import { useEffect, useState } from 'react'
 import Hero from '../../components/Hero'
 import ProductsList from '../../components/ProductsList'
 
-type Restaurante = {
-  id: number
-  title: string
-  grade: number
-  description: string
-  image: string
-  infos: string[]
-}
+import { useGetRestaurantesQuery } from '../../services/api'
 
-type ApiResponse = {
+export type ApiResponse = {
   id: number
   titulo: string
   avaliacao: number
@@ -22,16 +14,10 @@ type ApiResponse = {
 }
 
 const Home = () => {
-  const [restaurantes, setRestaurantes] = useState<Restaurante[]>([])
+  const { data, error, isLoading } = useGetRestaurantesQuery()
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(
-        'https://fake-api-tau.vercel.app/api/efood/restaurantes'
-      )
-      const data: ApiResponse[] = await response.json()
-
-      const mappedData = data.map((restaurante) => ({
+  const restaurantes = data
+    ? data.map((restaurante) => ({
         id: restaurante.id,
         title: restaurante.titulo,
         description: restaurante.descricao,
@@ -42,12 +28,10 @@ const Home = () => {
         ].filter(Boolean),
         image: restaurante.capa
       }))
+    : []
 
-      setRestaurantes(mappedData)
-    }
-
-    fetchData()
-  }, [])
+  if (isLoading) return <p>Carregando...</p>
+  if (error) return <p>Erro ao carregar os restaurantes</p>
 
   return (
     <>

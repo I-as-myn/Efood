@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Header from '../../components/Header'
 import Banner from '../../components/Banner'
 import RestauranteMenuList from '../../components/RestauranteMenuList'
 
-type MenuItem = {
+import { useGetRestauranteQuery } from '../../services/api'
+
+export type MenuItem = {
   id: number
   title: string
   description: string
@@ -23,82 +24,57 @@ type ApiMenuItem = {
   porcao: string
 }
 
-type ApiRestaurant = {
+export type ApiRestaurant = {
   id: number
-  nome: string
-  imagemFundo: string
-  categoria: string
+  titulo: string
+  destaque: boolean
+  tipo: string
+  avaliacao: number
+  descricao: string
+  capa: string
   cardapio: ApiMenuItem[]
 }
 
 const Categories = () => {
-  const { id } = useParams()
-  const [menu, setMenu] = useState<MenuItem[]>([])
-  const [restaurantInfo, setRestaurantInfo] = useState<ApiRestaurant | null>(
-    null
-  )
-  const [loading, setLoading] = useState<boolean>(true)
+  const { id } = useParams() //pega o id do restaurante
 
-  const fetchRestaurantData = async (restaurantId: string | undefined) => {
-    if (!restaurantId) return
+  // Busca os dados do restaurante
+  const {
+    data: restauranteData,
+    error: restauranteError,
+    isLoading: isRestauranteLoading
+  } = useGetRestauranteQuery(id || '') // Busca um único restaurante com base no ID
 
-    try {
-      const response = await fetch(
-        `https://fake-api-tau.vercel.app/api/efood/restaurantes/${restaurantId}`
-      )
-      if (!response.ok) {
-        throw new Error('Erro ao buscar dados do restaurante')
-      }
-      const data = await response.json()
+  console.log('Dados do restaurante:', restauranteData) // Log para depuração
 
-      setRestaurantInfo({
-        id: data.id,
-        nome: data.titulo,
-        imagemFundo: data.capa,
-        categoria: data.tipo,
-        cardapio: data.cardapio
-      })
+  // Mapeia os itens do cardápio
+  const menu = restauranteData?.cardapio
+    ? restauranteData.cardapio.map((item: ApiMenuItem) => ({
+        id: item.id,
+        title: item.nome,
+        description: item.descricao,
+        description2: item.descricao,
+        description3: item.porcao,
+        image: item.foto,
+        priceItem: item.preco
+      }))
+    : []
 
-      if (data.cardapio) {
-        const mappedMenu = data.cardapio.map((item: ApiMenuItem) => ({
-          id: item.id,
-          title: item.nome,
-          description: item.descricao,
-          description2: item.descricao,
-          description3: item.porcao,
-          image: item.foto,
-          priceItem: item.preco
-        }))
-        setMenu(mappedMenu)
-      }
-
-      setLoading(false)
-    } catch (error) {
-      console.error('Erro ao carregar dados:', error)
-      setLoading(false)
-    }
-  }
-
-  useEffect(() => {
-    fetchRestaurantData(id)
-  }, [id])
+  if (isRestauranteLoading) return <p>Carregando dados...</p>
+  if (restauranteError) return <p>Erro ao carregar os dados</p>
 
   return (
     <>
       <Header />
-      {restaurantInfo && (
-        <Banner
-          restaurantInfo={{
-            nome: restaurantInfo.nome,
-            categoria: restaurantInfo.categoria
-          }}
-          backgroundImage={restaurantInfo.imagemFundo}
-        />
-      )}
-      {loading ? (
-        <p>Carregando dados...</p>
-      ) : (
-        <RestauranteMenuList menu={menu} title="" />
+      {restauranteData && (
+        <>
+          <Banner
+            titulo={restauranteData.titulo}
+            tipo={restauranteData.tipo}
+            capa={restauranteData.capa}
+          />
+          <RestauranteMenuList menu={menu} title="" />
+        </>
       )}
     </>
   )

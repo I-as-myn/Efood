@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { cores } from '../../styles'
+import { breakpoints, cores } from '../../styles'
 
 export const Container = styled.div`
   background-color: ${cores.branca};
@@ -16,4 +16,9 @@ export const List = styled.ul`
   display: grid;
   grid-template-columns: repeat(2, 472px);
   gap: 48px 80px;
+
+  @media (max-width: ${breakpoints.desktop}) {
+    grid-template-columns: repeat(1, 472px);
+    justify-content: center;
+  }
 `

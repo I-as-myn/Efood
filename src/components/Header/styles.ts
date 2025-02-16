@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { cores } from '../../styles'
+import { breakpoints, cores } from '../../styles'
 
 export const HeaderBar = styled.header`
   width: 100%;
@@ -37,11 +37,19 @@ export const Links = styled.ul`
 export const LinkItem = styled.li`
   font-size: 18px;
   margin-left: 170px;
+
+  @media (max-width: ${breakpoints.desktop}) {
+    margin: auto;
+  }
 `
-export const LinkCart = styled.a`
+export const CartButton = styled.a`
   display: flex;
   font-size: 18px;
   margin-right: 170px;
+
+  @media (max-width: ${breakpoints.desktop}) {
+    margin: auto;
+  }
 `
 export const Logo = styled.img`
   width: 125px;
@@ -49,4 +57,8 @@ export const Logo = styled.img`
   margin-top: 10px;
   margin: 0 auto;
   margin-left: 150px;
+
+  @media (max-width: ${breakpoints.desktop}) {
+    margin: auto;
+  }
 `
