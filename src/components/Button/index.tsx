@@ -1,7 +1,7 @@
 import { ButtonContainer, ButtonLink } from './styles'
 
 type Props = {
-  type: 'button' | 'link'
+  type: 'button' | 'link' | 'submit'
   title: string
   to?: string
   onClick?: () => void
